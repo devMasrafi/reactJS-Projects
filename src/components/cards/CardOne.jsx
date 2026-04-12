@@ -8,7 +8,7 @@ const CardOne = ({
   isCompleted,
 }) => {
   return (
-    <div className="bg-milk-white w-100 px-5 py-4 rounded-2xl text-black mt-4 ">
+    <div className="bg-milk-white w-120 px-5 py-4 rounded-2xl text-black mt-4 ">
       <div>
         <h1
           className={`text-lg font-bold capitalize tracking-wider ${isCompleted ? `line-through` : ``}`}

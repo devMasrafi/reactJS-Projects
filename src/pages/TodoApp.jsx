@@ -49,14 +49,27 @@ const TodoApp = () => {
     });
     setTodoList(updatedTodoList);
   };
-
   //   delete Function
   const deleteTodo = (id) => {
     const updatedTodoList = todoList.filter((todo) => todo.id !== id);
     setTodoList(updatedTodoList);
   };
 
-  //   checking the array after state is done
+  //   FILTER STATES
+  const [filter, setFilter] = useState("all");
+
+  const filteredTodos = todoList.filter((todo) => {
+    if (filter === "all") {
+      return true;
+    }
+    if (filter === "active") {
+      return todo.isCompleted === false;
+    }
+    if (filter === "completed") {
+      return todo.isCompleted === true;
+    }
+  });
+
   useEffect(() => {
     console.log(`todo list after all:`, todoList);
   }, [todoList]);
@@ -96,21 +109,28 @@ const TodoApp = () => {
       </div>
 
       {/* list for todo */}
-      <div className=" h-135 overflow-y-auto scrollbar-hide">
-        {todoList.length === 0 ? (
-          <CardOne />
-        ) : (
-          todoList.map((todo) => (
-            <CardOne
-              key={todo.id}
-              todoTitle={todo.todoTitle}
-              todoDetails={todo.todoDetails}
-              isCompleted={todo.isCompleted}
-              buttonOneClick={() => completedTodo(todo.id)}
-              buttonTwoClick={() => deleteTodo(todo.id)}
-            />
-          ))
-        )}
+      <div>
+        <div className="flex justify-between mb-2">
+          <Button className={`bg-green text-white`} onClick={() => setFilter("all")}>all</Button>
+          <Button className={`bg-green text-white`} onClick={()=> setFilter('active')}>active</Button>
+          <Button className={`bg-green text-white`} onClick={()=> setFilter('completed')} >completed</Button>
+        </div>
+        <div className="h-135 overflow-y-auto overflow-x-hidden scrollbar-hide">
+          {todoList.length === 0 ? (
+            <CardOne />
+          ) : (
+            filteredTodos.map((todo) => (
+              <CardOne
+                key={todo.id}
+                todoTitle={todo.todoTitle}
+                todoDetails={todo.todoDetails}
+                isCompleted={todo.isCompleted}
+                buttonOneClick={() => completedTodo(todo.id)}
+                buttonTwoClick={() => deleteTodo(todo.id)}
+              />
+            ))
+          )}
+        </div>
       </div>
     </div>
   );
