@@ -3,13 +3,7 @@ import Button from "../components/btn/Button";
 import { useEffect, useState } from "react";
 
 const TodoApp = () => {
-  const [todoList, setTodoList] = useState([
-    // {
-    //   id: 11112,
-    //   todoTitle: `there should be somethign here`,
-    //   todoDetails: `Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia delectus, fugit necessitatibus fugiat.`,
-    // },
-  ]);
+  const [todoList, setTodoList] = useState([]);
   const [addedTitle, setAddedTitle] = useState("");
   const [addedDiscription, setAddedDiscription] = useState("");
 
@@ -37,6 +31,7 @@ const TodoApp = () => {
       id: Date.now(),
       todoTitle: addedTitle,
       todoDetails: addedDiscription,
+      isCompleted: false,
     };
     setTodoList([...todoList, newTodo]);
 
@@ -44,6 +39,24 @@ const TodoApp = () => {
     setAddedDiscription("");
   };
 
+  //   completed function
+  const completedTodo = (id) => {
+    const updatedTodoList = todoList.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, isCompleted: !todo.isCompleted };
+      }
+      return todo;
+    });
+    setTodoList(updatedTodoList);
+  };
+
+  //   delete Function
+  const deleteTodo = (id) => {
+    const updatedTodoList = todoList.filter((todo) => todo.id !== id);
+    setTodoList(updatedTodoList);
+  };
+
+  //   checking the array after state is done
   useEffect(() => {
     console.log(`todo list after all:`, todoList);
   }, [todoList]);
@@ -92,6 +105,9 @@ const TodoApp = () => {
               key={todo.id}
               todoTitle={todo.todoTitle}
               todoDetails={todo.todoDetails}
+              isCompleted={todo.isCompleted}
+              buttonOneClick={() => completedTodo(todo.id)}
+              buttonTwoClick={() => deleteTodo(todo.id)}
             />
           ))
         )}
