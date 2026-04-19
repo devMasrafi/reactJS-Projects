@@ -3,6 +3,8 @@ import { NavLink } from "react-router";
 import Button from "../../components/btn/Button";
 import { IoMdAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
+import Footer from "../../components/navigation/Footer";
+import Subcription from "../../components/contactSections/Subcription";
 
 const Home = () => {
   const [openQuestionIndex, setOpenQuestionIndex] = useState(null);
@@ -12,6 +14,11 @@ const Home = () => {
       question: "Who are you?",
       answer:
         "I'm a web developer focused on building responsive and interactive web apps using React Nextjs MeterialUi, mondobd, express ",
+    },
+    {
+      question: "Want to hire me?",
+      answer:
+        "Yes, I am curently looking for work in any invironment office remote or project contract.",
     },
     {
       question: "What framework or library used",
@@ -98,7 +105,7 @@ const Home = () => {
               </div>
               {/* answer */}
               {openQuestionIndex === index && (
-                <p className="text-lg italic px-2 py-1 bg-black/20 rounded-xl mt-2">
+                <p className="ml-5 pl-5 text-lg italic px-2 py-1 bg-black/20 rounded-xl mt-2">
                   {item.answer}
                 </p>
               )}
@@ -106,6 +113,14 @@ const Home = () => {
           ))}
         </div>
       </div>
+
+      {/* leave a mail to contact leter */}
+      <div className="border-y border-x p-20 ">
+        <Subcription />
+      </div>
+
+      {/* footer component */}
+      <Footer className={`mt-20`} />
     </main>
   );
 };
