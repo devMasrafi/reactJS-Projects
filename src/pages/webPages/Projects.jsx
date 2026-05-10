@@ -16,6 +16,12 @@ const Projects = () => {
       projectLink: "/weather",
     },
     {
+      image: "src/assets/images/weatherAPp.png",
+      title: "Recipie Book modal style easy to follow",
+      para: "easy to use recipie book for different cuisines and detailed explanation on how to make each and every one of them. what to use and what to do on each of the step",
+      projectLink: "/recipiebook",
+    },
+    {
       image: "src/assets/images/APiCall.png",
       title: "fetching APIdata from JsonPlace holder",
       para: "made with react js and TailwindCSS, getting data and setting up all of the jundamental work so its easy to view and manage it after",

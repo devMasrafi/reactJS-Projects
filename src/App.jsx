@@ -8,6 +8,7 @@ import Projects from "./pages/webPages/Projects";
 import TodoApp from "./pages/projectPages/TodoApp";
 import ApiDataPage from "./pages/projectPages/ApiDataPage";
 import WeatherApp from "./pages/projectPages/WeatherApp";
+import RecipiApp from "./pages/projectPages/RecipiApp";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
       {
         path: "/weather",
         element: <WeatherApp />,
+      },
+      {
+        path: "/recipiebook",
+        element: <RecipiApp />,
       },
     ],
   },

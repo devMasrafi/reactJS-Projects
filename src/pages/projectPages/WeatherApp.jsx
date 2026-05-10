@@ -4,6 +4,7 @@ import { IoLocationSharp } from "react-icons/io5";
 import { NavLink } from "react-router";
 import { MdErrorOutline } from "react-icons/md";
 import Footer from "../../components/navigation/Footer";
+import WeatherSmallCard from "../../components/cards/WeatherSmallCard";
 
 const WeatherApp = () => {
   const [locationInput, setLocationInput] = useState("");
@@ -11,6 +12,7 @@ const WeatherApp = () => {
 
   const { weatherApi, error, loading } = useWeatherData(locationName);
 
+  console.log(weatherApi);
   const handleLocationName = (e) => {
     e.preventDefault();
 
@@ -109,57 +111,67 @@ const WeatherApp = () => {
 
           {/* right side */}
           <div className="w-180 border h-120 rounded-xl ">
-            {/* topcard */}
-            <div className="flex justify-around mt-10">
-              <div className="border rounded-xl px-4 py-5 w-40 h-30 ">
-                <p className="text-2xl capitalize font-semibold underline underline-offset-8 pb-4 ">
-                  {weatherApi?.current.is_day === 1 ? `day time` : `night time`}
-                </p>
-                <p>
-                  {weatherApi === null
-                    ? "time field"
-                    : weatherApi.location.localtime}
-                </p>
-              </div>
-              <div className="border rounded-xl text-center px-4 py-5 w-40 h-30 ">
-                <p className="text-4xl  underline underline-offset-6  pb-4">
-                  {error ? "--" : weatherApi?.current.humidity}
-                  <span className="text-sm">%</span>
-                </p>
-                <h2 className="text-lg capitalize tracking-wider font-semibold">
-                  humidity
-                </h2>
-              </div>
-              <div className="border rounded-xl text-center px-4 py-5 w-40 h-30 ">
-                <p className="text-4xl  underline underline-offset-6  pb-4">
-                  {weatherApi == null ? "" : weatherApi.current.wind_kph}{" "}
-                  <span className="text-sm">kmh</span>
-                </p>
-                <h2 className="text-lg capitalize tracking-wider font-semibold">
-                  wind speed
-                </h2>
-              </div>
-            </div>
-            {/* bottomCard */}
-            <div className="mt-20">
-              <div className="flex  items-center justify-center gap-4">
-                <div className="border rounded-xl text-center px-4 py-5 w-40 h-30 ">
-                  <p className="text-4xl  underline underline-offset-6  pb-4">
-                    {weatherApi?.current.uv}
-                  </p>
-                  <h2 className="text-lg capitalize tracking-wider font-semibold">
-                    Uv Index
-                  </h2>
+            <div className="flex h-full items-center justify-center">
+              <div className="w-full">
+                <div className="flex flex-wrap gap-3 items-center justify-center">
+                  <WeatherSmallCard
+                    title={
+                      weatherApi == null ? "" : weatherApi.current.wind_kph
+                    }
+                    details={`wind speed`}
+                  />
+                  <WeatherSmallCard
+                    title={error ? "--" : weatherApi?.current.humidity}
+                    details={error ? "--" : "humidity"}
+                  />
+                  <WeatherSmallCard
+                    title={weatherApi?.current.uv}
+                    details={`Sun UV index `}
+                  />
+                  <WeatherSmallCard
+                    title={weatherApi?.current.vis_km}
+                    details={`visual/Km`}
+                  />
                 </div>
-                <div className="border rounded-xl text-center px-4 py-5 w-40 h-30 ">
-                  <p className="text-4xl  underline underline-offset-6  pb-4">
-                    {weatherApi?.current.vis_km}{" "}
-                    <span className="text-sm">km</span>
-                  </p>
-                  <h2 className="text-lg capitalize tracking-wider font-semibold">
-                    visual per Km
-                  </h2>
-                </div>
+              </div>
+
+              {/* guide information */}
+              <div className="h-full border-l p-10 w-130">
+                <h2 className="text-2xl capitalize  underline underline-offset-4 pb-5">
+                  guide
+                </h2>
+                <ul className="text-sm tracking-wider list-inside list-disc">
+                  <li className="pb-2">
+                    Current city has been set to{" "}
+                    <span className="text-blue-400 font-medium italic">
+                      {weatherApi ? weatherApi.location.name : "loading..."}
+                    </span>
+                  </li>
+                  <li className="pb-2">
+                    change the city by typing the name in the search bar
+                  </li>
+                  <li className="pb-2">
+                    if the city is in our database it will show
+                  </li>
+                  <li className="pb-2">
+                    if its not in our database we hope for your understanding
+                  </li>
+                  <li className="pb-2">
+                    This is from public API{" "}
+                    <span className="text-blue-400 tracking-widest cursor-pointer">
+                      (
+                      <NavLink
+                        to={`https://www.weatherapi.com/`}
+                        target="_blank"
+                      >
+                        weatherapi.com
+                      </NavLink>
+                      )
+                    </span>
+                    you can follow link above for details
+                  </li>
+                  <li className="pb-2">Thank you for your understanding</li>
+                </ul>
               </div>
             </div>
           </div>
